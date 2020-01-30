@@ -10,8 +10,8 @@
             {!! Form::model($task, ['route' => ['tasks.update', $task->id], 'method' => 'put']) !!}
         
                 <div class="form-group">
-                    {!! Form::label('task', 'タスク:') !!}
-                    {!! Form::text('task', null, ['class' => 'form-control']) !!}
+                    {!! Form::label('content', 'タスク:') !!}
+                    {!! Form::text('content', null, ['class' => 'form-control']) !!}
                 </div>
         
                 {!! Form::submit('更新', ['class' => 'btn btn-primary']) !!}
