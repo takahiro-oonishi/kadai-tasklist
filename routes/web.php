@@ -11,6 +11,23 @@
 |
 */
 
-Route::get('/', 'TasksController@index');
-
+//Route::get('/', 'TasksController@index'); を下記に変更
+Route::get('/', 'Auth\RegisterController@showRegistrationForm');
 Route::resource('tasks','TasksController');
+
+// ユーザ登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
+// ログイン認証
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
+
+// ユーザ機能
+//グループに書かれたルーティングは、必ずログイン認証を確認させる
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', 'TasksController@index');
+    //作成、編集、削除はログイン状態を必要とする。
+    Route::resource('tasks','TasksController',['only'=>['create','edit','destroy']]);
+});

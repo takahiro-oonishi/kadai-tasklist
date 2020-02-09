@@ -1,5 +1,5 @@
 <?php
-
+//ユーザー登録のコントローラー
 namespace App\Http\Controllers\Auth;
 
 use App\User;
@@ -19,7 +19,10 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+    
+    //RegistersUsers を見ると showRegistrationForm() が定義されており、
+    //中には return view('auth.register'); の1行だけが記述されていることがわかります。
+    //showRegistrationForm() アクションは、ただ単に resources/views/auth/register.blade.php を表示するアクションだということです。
     use RegistersUsers;
 
     /**
@@ -27,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';//ユーザー登録直後は、トップページにリダイレクト
 
     /**
      * Create a new controller instance.
@@ -36,7 +39,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest');//コントローラーにアクセスするためには、ゲストである必要がある
     }
 
     /**
@@ -45,6 +48,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+     
     protected function validator(array $data)
     {
         return Validator::make($data, [

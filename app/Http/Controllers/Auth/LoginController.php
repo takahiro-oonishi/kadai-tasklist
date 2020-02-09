@@ -1,5 +1,5 @@
 <?php
-
+//ログイン認証のコンローラー
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -25,7 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';//ログイン後は、トップページにリダイレクトされます。
 
     /**
      * Create a new controller instance.
@@ -34,6 +34,11 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        /*
+        「logout アクション以外では guest である必要がある」という条件を持ったミドルウェアが設定されていることになります。
+         guest とは、ログイン認証されていなuet閲覧者のことです。
+         つまり「 logout アクション以外では  ログイン認証されていない  ことが必要」という条件です。
+        */
         $this->middleware('guest')->except('logout');
     }
 }
